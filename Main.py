@@ -36,4 +36,4 @@ def create_hotel_table(user_input):
                         Column("customerID", Integer, primary_key=True))
     metadata.create_all(engine)
 
-create_hotel_table(input">")
+create_hotel_table(input(">"))
