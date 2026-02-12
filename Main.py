@@ -10,7 +10,7 @@ load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-engine = create_engine("mysql://root:Red47red.@localhost:3306/hotelmanager")
+engine = create_engine(os.getenv("DATABASE_URL"))
 engine.connect()
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
