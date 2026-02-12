@@ -30,10 +30,10 @@ def create_hotel_table(user_input):
     config={"response_mime_type": "application/json"})
 
     data = json.loads(response.text)
-    hotel_name = data["hotel_name"]
+    hotel_name = int(data["hotel_name"])
     hotel_table = Table(hotel_name,
                         metadata,
                         Column("customerID", Integer, primary_key=True))
     metadata.create_all(engine)
 
-create_hotel_table("Hey, i'd like to register with your hotel management system. We're called koala hotels and have 3 different types of Rooms: Large, Medium, Small")
+create_hotel_table(input">")
