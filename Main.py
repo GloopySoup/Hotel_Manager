@@ -5,14 +5,34 @@ from google import genai
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from typing import Annotated
-import Models
-from Database import engine, SessionLocal
+import models
+from database import engine, SessionLocal
 from sqlalchemy.orm import Session
+from sqlalchemy import MetaData
 
+metadata = MetaData()
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 app = FastAPI()
-Models.Base.
+models.Base.metadata.create_all(bind=engine)
+
+class CustomerBase(BaseModel):
+    customerID: int
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+db_dependency = Annotated[Session, Depends(get_db)]
+
+@app.post("/customers/", status_code=status.HTTP_201_CREATED)
+async def add_customer(customer: CustomerBase, db: db_dependency):
+    db_customer = models.User(**customer.dict())
+    db.add(db_customer)
+    db.commit()
 
 
 def ai():
