@@ -29,7 +29,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.post("/customers/", status_code=status.HTTP_201_CREATED)
 async def create_customer(customer: CustomerBase, db: db_dependency):
-    db_customer = models.Customer(**customer.dict())
+    db_customer = models.Hotel(**customer.dict())
     db.add(db_customer)
     db.commit()
 
