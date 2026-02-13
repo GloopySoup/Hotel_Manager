@@ -8,12 +8,11 @@ from typing import Annotated
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
-from sqlalchemy import MetaData
 
-metadata = MetaData()
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 app = FastAPI()
+
 models.Base.metadata.create_all(bind=engine)
 
 class CustomerBase(BaseModel):
@@ -29,8 +28,8 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.post("/customers/", status_code=status.HTTP_201_CREATED)
-async def add_customer(customer: CustomerBase, db: db_dependency):
-    db_customer = models.User(**customer.dict())
+async def create_customer(customer: CustomerBase, db: db_dependency):
+    db_customer = models.Customer(**customer.dict())
     db.add(db_customer)
     db.commit()
 
@@ -52,4 +51,5 @@ def ai():
     #data = json.loads(response.text)
 
         #hotel_name = int(data["hotel_name"])
-hotel_name = "Hey, i'd like to register with your hotel management system. We're called Koala Hotels and have 3 different types of Rooms: Large, Medium, Small"
+#hotel_name = "Hey, i'd like to register with your hotel management system. We're called Koala Hotels and have 3 different types of Rooms: Large, Medium, Small"
+hotel_name = "koala hotels"
