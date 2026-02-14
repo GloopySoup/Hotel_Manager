@@ -9,19 +9,18 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def ai(user_input):
     pass
-    #response = client.models.generate_content(
-        #model="gemini-3-flash-preview",
-        #contents="""Extract structured data from the text below.
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents="""Extract structured data from the text below.
 
-        #Return ONLY valid JSON in this format:
-        #{{
-        #"hotel_name": "string",
-        #"room_type": "string"
-        #}}
-    #Text: """ + user_input,
-    #config={"response_mime_type": "application/json"})
-    #data = json.loads(response.text)
+        Return ONLY valid JSON in this format:
+        {{
+        "hotel_name": "string",
+        }}
+    Text: """ + user_input,
+    config={"response_mime_type": "application/json"})
+    data = json.loads(response.text)
 
-    #hotel_name = int(data["hotel_name"])
-    #return hotelTable_name
+    hotelTable_name = int(data["hotel_name"])
+    return hotelTable_name
 

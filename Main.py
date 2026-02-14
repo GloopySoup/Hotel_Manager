@@ -1,7 +1,7 @@
 import os
 import json
+import gemini
 from dotenv import load_dotenv
-from google import genai
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from typing import Annotated, Optional, List
@@ -20,15 +20,14 @@ Base = declarative_base()
 
 
 
-hotelTable_name = "koala hotels"
-#def get_name(user_input):
- #   hotelTable_name = gemini.ai(user_input).strip("()',")
+
+hotelTable_name = gemini.ai("Hey, i'd like to register with your hotel management system. We're called Koala Hotels and have 3 different types of Rooms: Large, Medium, Small")
 
 
 class Hotel(Base):
     __tablename__ = "koala hotels"
     customerID = Column(Integer, primary_key=True, index=True)
-    customerName = Column(String,index=True)
+    customerName = Column(String(50),index=True)
 
 Base.metadata.create_all(engine)
 
