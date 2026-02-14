@@ -21,7 +21,7 @@ Base = declarative_base()
 
 
 
-hotelTable_name = gemini.ai("Hey, i'd like to register with your hotel management system. We're called Koala Hotels and have 3 different types of Rooms: Large, Medium, Small")
+hotelTable_name = gemini.ai(input(">"))
 
 
 class Hotel(Base):
@@ -82,7 +82,8 @@ async def update_customer(customerID: int, customer: CustomerUpdate, db: db_depe
     db_customer = db.query(Hotel).filter(Hotel.customerID == customerID).first()
     if db_customer is None:
         raise HTTPException(status_code=404, detail="Customer not found")
-    db_customer.customerName = Hotel.customerName if Hotel.customerName is not None else db_customer.customerName
+    if customer.customerName is not None:
+        db_customer.customerName = customer.customerName
     db.commit()
     db.refresh(db_customer)
     return db_customer 
