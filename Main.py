@@ -25,7 +25,7 @@ hotelTable_name = gemini.ai("Hey, i'd like to register with your hotel managemen
 
 
 class Hotel(Base):
-    __tablename__ = "koala hotels"
+    __tablename__ = hotelTable_name
     customerID = Column(Integer, primary_key=True, index=True)
     customerName = Column(String(50),index=True)
 

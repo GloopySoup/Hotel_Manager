@@ -8,7 +8,6 @@ load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def ai(user_input):
-    pass
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents="""Extract structured data from the text below.
@@ -21,6 +20,6 @@ def ai(user_input):
     config={"response_mime_type": "application/json"})
     data = json.loads(response.text)
 
-    hotelTable_name = int(data["hotel_name"])
+    hotelTable_name = data["hotel_name"]
     return hotelTable_name
 
