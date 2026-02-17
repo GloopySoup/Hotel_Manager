@@ -1,3 +1,4 @@
 import database
-def query():
-    query(database.Hotel).filter(database.Hotel.customerID == database.customerID).first()
+
+def query(db, customer_id: int):
+    return db.query(database.Hotel).filter(database.Hotel.customerID == customer_id).first()
